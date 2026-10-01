@@ -1,0 +1,7 @@
+[general]
+name=SFN Iris
+description=vezeel.com
+author=Vezeel Group
+icon=icon.svg
+version=0.6.0
+homepage=https://vezeel.com
