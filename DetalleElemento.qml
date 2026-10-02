@@ -32,6 +32,8 @@ Rectangle {
 
   // expuesto para CardGrupo (SubModel necesita el modelo y sus indices)
   readonly property var modeloFormulario: modeloForm
+  // expuesto para CampoFoto (capa y feature para la expresion de nombre)
+  readonly property var modeloFeatureActual: modeloFeature
 
   // Si el detalle se oculta por afuera con el dialogo abierto, no dejar el
   // overlay modal huerfano sobre la app (esta reparentado a la ventana).
@@ -87,14 +89,17 @@ Rectangle {
     flick.contentY = 0
   }
 
-  // Componente por tipo de widget QGIS. ValueMap y ValueRelation usan el suyo
-  // tambien en lectura (resuelven etiquetas/chips); el resto solo en edicion.
+  // Componente por tipo de widget QGIS. ValueMap, ValueRelation y
+  // ExternalResource usan el suyo tambien en lectura (resuelven etiquetas,
+  // chips o miniatura); el resto solo en edicion.
   function urlComponente(widget) {
     switch (widget) {
     case "ValueMap":
       return "CampoOpciones.qml"
     case "ValueRelation":
       return "CampoRelacion.qml"
+    case "ExternalResource":
+      return "CampoFoto.qml"
     case "TextEdit":
       return enEdicion ? "CampoTexto.qml" : "CampoSoloLectura.qml"
     case "Range":
@@ -104,7 +109,7 @@ Rectangle {
     case "DateTime":
       return enEdicion ? "CampoFechaHora.qml" : "CampoSoloLectura.qml"
     default:
-      // ExternalResource, RelationEditor, UuidGenerator, etc: solo lectura
+      // RelationEditor, UuidGenerator, etc: solo lectura
       return "CampoSoloLectura.qml"
     }
   }

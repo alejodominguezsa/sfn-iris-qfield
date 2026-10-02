@@ -64,6 +64,15 @@ EnvoltorioCampo {
             ? fila.tipoWidget : ""
         })
       }
+      // CampoFoto necesita capa y feature para la expresion de nombre
+      if (item.capa !== undefined) {
+        item.capa = Qt.binding(function () {
+          return fila.controlador ? fila.controlador.modeloFeatureActual.currentLayer : null
+        })
+        item.feature = Qt.binding(function () {
+          return fila.controlador ? fila.controlador.modeloFeatureActual.feature : null
+        })
+      }
       item.cambioSolicitado.connect(function (v, esNull) {
         if (fila.controlador)
           fila.controlador.aplicarCambio(fila.gadgetCampo, fila.etiqueta, fila.valorActual, v, esNull)
